@@ -1,0 +1,107 @@
+{
+  "name": "weather",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 6
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -1184,
+        -80
+      ],
+      "id": "d2ab62ef-8da2-44dd-837b-1a0a5e158201",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "cityName": "Delhi"
+      },
+      "type": "n8n-nodes-base.openWeatherMap",
+      "typeVersion": 1,
+      "position": [
+        -864,
+        -80
+      ],
+      "id": "564b0285-ed75-4f33-afed-1796fd6ac818",
+      "name": "OpenWeatherMap",
+      "credentials": {
+        "openWeatherMapApi": {
+          "id": "0FzlfacqaGuc2n4G",
+          "name": "OpenWeatherMap account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "arorayuvraj14@gmail.com",
+        "subject": "Daily Weather Update",
+        "emailType": "text",
+        "message": "=Today's temperature  is  {{ $json.main.temp }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        -544,
+        -80
+      ],
+      "id": "f7d84ba0-91d3-464a-a554-32ab632f528b",
+      "name": "Send a message",
+      "webhookId": "0386f6c7-6250-400e-9983-383d04a6f554",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "GPoWqTJUjAAiCpTF",
+          "name": "Gmail account 6"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenWeatherMap": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "2fc41640-6275-47da-9d56-a64e322a4690",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c7bff1e5368d36b2aeb985fd475cd76dfa926c549598c5241708e70afc3cc84b"
+  },
+  "nodeGroups": [],
+  "id": "jHAp9615NruwsOSN",
+  "tags": []
+}
